@@ -1,31 +1,29 @@
 import React, { Component } from 'react';
+import Message from './Message'
 
-const DUMMY_DATA = [
-    {
-        senderId:'BJ',
-        text:'Hey, how is it going?'
-    },
-    {
-        senderId: 'Piyush',
-        text: 'Great, how about you?'
-    },
-    {
-        senderId: 'BJ',
-        text: 'Good to hear, I am great as well'
-    }
-]
+// const DUMMY_DATA = [
+//     {
+//         senderId:'BJ',
+//         text:'Hey, how is it going?'
+//     },
+//     {
+//         senderId: 'Piyush',
+//         text: 'Great, how about you?'
+//     },
+//     {
+//         senderId: 'BJ',
+//         text: 'Good to hear, I am great as well'
+//     }
+// ]
 
 class MessageList extends Component {
 
     render() {
         return (
             <div className="message-list">
-               {DUMMY_DATA.map((message, index) => {
+               {this.props.messages.map((message, index) => {
                    return (
-                       <div key={index} className='message'>                            
-                        <div className='message-username'>{message.senderId}</div>
-                        <div className='message-text'>{message.text}</div>
-                       </div>
+                       <Message key={index} time={message.createdAt} username={message.user} text={message.text} />
                    )
                })}
             </div>
