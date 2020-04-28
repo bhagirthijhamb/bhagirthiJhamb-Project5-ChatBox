@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
 
 // import components
 import LoginModal from './components/LoginModal';
 import MessageList from './components/MessageList';
 import Message from './components/Message';
-import MessageInputForm from './components/MessageInput';
+import SendMessageForm from "./components/SendMessageForm";
 
 // import firebase
-import firebase from './firebase.js';
+import firebase from './firebase';
 
+// CSS for the `App` component
+import "./App.scss";
 
 
 class App extends Component {
@@ -18,10 +19,9 @@ class App extends Component {
     this.state = {
       show: false,
       messages: [],
-      userInput: "",
-      userName: "",
-      userColor: "default",
-      date: "",
+      user: "",
+      time: "",
+      message: ''
     };
   }
 
@@ -32,100 +32,105 @@ class App extends Component {
     });
   };
 
-  checkAuth = () => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        firebase.auth().signInAnonymously();
-      }
-    });
-  };
+  getLoginUser = (userName) => { 
+    this.setState({ 
+      user: userName 
+    }) 
+  }
 
-  send = messages => {
-    messages.forEach(item => {
-      const message = {
-        text: item.text,
-        timestamp: firebase.database.ServerValue.TIMESTAMP,
-        user: item.user
+  getMessage = (messageText) => {
+    this.setState({
+      message: messageText
+    })
+    this.send(this.state.messages);
+  }
+
+  // send = messages => {
+  //   messages.forEach(item => {
+  //     const message = {
+  //       text: item.text,
+  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
+  //       user: item.user
+  //     }
+  //     this.db.push(message);
+  //   })
+  // }
+
+  // send = () => {    
+  //     const message = {
+  //       text: this.state.message,
+  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
+  //       user: this.state.user
+  //     }
+  //     this.db.push(message);
+  //   }
+
+  // parse = (message) => {
+  //   const { user, text, timestamp } = message.val();
+  //   const { key: _id } = message;
+  //   const date = new Date(timestamp);
+  //   const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+
+  //   return {
+  //     _id,
+  //     createdAt,
+  //     text,
+  //     user,
+  //   };
+  // };
+
+  // get = (callback) => {
+  //   this.db.on("child_added", (snapShot) => callback(this.parse(snapShot)));
+  // };
+
+  // off() {
+  //   this.db.off();
+  // }
+
+  // get db() {
+  //   return firebase.database().ref("messages");
+  // }
+
+  // get uid() {
+  //   return (firebase.auth().currentUser || {}).uid;
+  // }
+
+  // get user() {
+  //   return {
+  //     _id: this.uid,
+  //     name: this.state.user,
+  //   };
+  // }
+
+  componentDidMount() {
+    const dbRef = firebase.database().ref('messages');
+    dbRef.on('value', (response) => {
+      const data = response.val();
+
+      const messageArray = []
+      for(let key in data) {
+        // console.log(data[key]);
+
+        const { user, message, time } = data[key];
+        const date = new Date(time);
+        const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        console.log(user, message, createdAt);
+
+        messageArray.push({time: createdAt, user: user, message: message});
+
+        this.setState({
+          time: createdAt,
+          user: user,
+          message: message,
+          messages: messageArray
+        })
       }
-      this.db.push(message);
+      console.log(messageArray);
     })
   }
 
-  parse = (message) => {
-    const { user, text, timestamp } = message.val();
-    const { key: _id } = message;
-    const date = new Date(timestamp);
-    const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
-    return {
-      _id,
-      createdAt,
-      text,
-      user,
-    };
-  };
-
-  get = (callback) => {
-    this.db.on("child_added", (snapShot) => callback(this.parse(snapShot)));
-  };
-
-  off() {
-    this.db.off();
-  }
-
-  get db() {
-    return firebase.database().ref("messages");
-  }
-
-  get uid() {
-    return (firebase.auth().currentUser || {}).uid;
-  }
-
-  get user() {
-    return {
-      _id: this.uid,
-      name: "Piyush",
-    };
-  }
-
-  componentDidMount() {
-    const dbRef = firebase.database().ref();
-
-    dbRef.on("value", (response) => {
-      // const dataFromDb = response.val();
-
-      // console.log(response.val());
-
-      // const newState = [];
-
-      // // loop over each value in the array and push them to a new array (newState).
-      // for (let key in dataFromDb) {
-      //   const messageInfo = {
-      //     key: key,
-      //     message: dataFromDb[key],
-      //   };
-      //   newState.push(messageInfo);
-      // }
-      // // call this.setState to update the component state using the local array newState.
-      // this.setState({
-      //   messages: newState
-      // });
-
-      // console.log(this.state.messages);
-
-      this.get((message) =>
-        this.setState((previous) => ({
-          messages: [...this.state.messages, message],
-        }))
-      );
-      console.log(this.state.messages);
-    });
-  }
-
-  componentWillUnmount() {
-    this.off();
-  }
-
+     
+  
   render() {
     return (
       <div className="mobile">
@@ -139,15 +144,11 @@ class App extends Component {
           Create User
         </button>
 
-        <LoginModal onClose={this.showModal} show={this.state.show}>
+        <LoginModal getLoginUser={this.getLoginUser} onClose={this.showModal} show={this.state.show}>
           Choose your chat username
-        </LoginModal>
+        </LoginModal>        
 
-        <MessageInputForm
-          handleFormSubmit={this.handleFormSubmit}
-          handleChange={this.handleChange}
-          userInputProp={this.state.userInput}
-        />
+        <SendMessageForm user={this.state.user} getMessage={this.getMessage}/>
       </div>
     );
   }

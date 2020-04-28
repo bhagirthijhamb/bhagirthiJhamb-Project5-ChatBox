@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import loginModal from '../styles/loginModal.scss';
 
 // Grey background
 const backdropStyle = {
@@ -29,11 +28,38 @@ const footerStyle = {
 
 
 class LoginModal extends Component {
+  constructor(){
+    super()
+    this.state = {
+      user: ''
+    }
+  }
+
+  sendUser = () => {
+    this.props.getLoginUser(this.state.user)
+  }
+
   onclose = (e) => {
     this.props.onClose && this.props.onClose(e);
   }; 
 
+
+  handleChange = (e) => {
+    // console.log(e.target.value);
+    this.setState({
+      user: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.sendUser();
+  }
+  
   render() {
+    console.log(this.state.user);
+    
+
     if (!this.props.show) {
       return null;
     }
@@ -42,17 +68,15 @@ class LoginModal extends Component {
         <div style={modalStyle}>
           {this.props.children}
 
-          <input type="text" placeholder="Username" />
-
-          <div style={footerStyle}> 
-            <button
-              onClick={(e) => {
-                this.props.onClose(e);
-              }}
-            >
-              Submit
+        <form onSubmit={this.handleSubmit} action="">
+          <input onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
+            <div style={footerStyle}>
+              <button>Submit
+                <button onClick={(e) => { this.props.onClose(e); }}>CLose</button>
             </button>
-          </div>
+            </div>
+        </form>
+          
         </div>
       </div>
     );
