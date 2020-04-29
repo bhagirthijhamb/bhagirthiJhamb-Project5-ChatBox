@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
 // import components
-import LoginModal from './components/LoginModal';
+import EnterUserModal from './components/EnterUserModal';
 import MessageList from './components/MessageList';
-import Message from './components/Message';
+import ChatGroup from './components/ChatGroup';
 import SendMessageForm from "./components/SendMessageForm";
 
 // import firebase
@@ -17,19 +17,33 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      show: false,
+      userShow: false,
+      groupShow: false,
+      message: "",
       messages: [],
-      user: "",
       time: "",
-      message: ''
+      user: '',
+      group: '',
+      groups: []
     };
   }
 
-  showModal = () => {
+  showUserModal = () => {
     this.setState({
       ...this.state,
-      show: !this.state.show,
+      userShow: !this.state.userShow,
     });
+  };
+
+  showGroupModal = () => {
+    this.setState({
+      ...this.state,
+      groupShow: !this.state.groupShow,
+    });
+  };
+
+  onclose = (e) => {
+    this.props.onClose && this.props.onClose(e);
   };
 
   getLoginUser = (userName) => { 
@@ -38,117 +52,78 @@ class App extends Component {
     }) 
   }
 
-  getMessage = (messageText) => {
+  getGroupName = (groupName) => {
     this.setState({
-      message: messageText
+      group: groupName
     })
-    this.send(this.state.messages);
   }
 
-  // send = messages => {
-  //   messages.forEach(item => {
-  //     const message = {
-  //       text: item.text,
-  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
-  //       user: item.user
-  //     }
-  //     this.db.push(message);
-  //   })
-  // }
-
-  // send = () => {    
-  //     const message = {
-  //       text: this.state.message,
-  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
-  //       user: this.state.user
-  //     }
-  //     this.db.push(message);
-  //   }
-
-  // parse = (message) => {
-  //   const { user, text, timestamp } = message.val();
-  //   const { key: _id } = message;
-  //   const date = new Date(timestamp);
-  //   const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-
-  //   return {
-  //     _id,
-  //     createdAt,
-  //     text,
-  //     user,
-  //   };
-  // };
-
-  // get = (callback) => {
-  //   this.db.on("child_added", (snapShot) => callback(this.parse(snapShot)));
-  // };
-
-  // off() {
-  //   this.db.off();
-  // }
-
-  // get db() {
-  //   return firebase.database().ref("messages");
-  // }
-
-  // get uid() {
-  //   return (firebase.auth().currentUser || {}).uid;
-  // }
-
-  // get user() {
-  //   return {
-  //     _id: this.uid,
-  //     name: this.state.user,
-  //   };
-  // }
-
   componentDidMount() {
-    const dbRef = firebase.database().ref('messages');
+
+    const dbRef = firebase.database().ref(`messages`);
+    // const dbRef = firebase.database().ref(this.state.group);
+
     dbRef.on('value', (response) => {
       const data = response.val();
+      
+      this.setState({
+        messages: []
 
-      const messageArray = []
-      for(let key in data) {
-        // console.log(data[key]);
-
+      })
+      // console.log(this.state.messages);
+      for (let key in data) {
         const { user, message, time } = data[key];
         const date = new Date(time);
         const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        console.log(user, message, createdAt);
-
-        messageArray.push({time: createdAt, user: user, message: message});
+        // console.log(user, message, createdAt);
 
         this.setState({
           time: createdAt,
           user: user,
           message: message,
-          messages: messageArray
+          messages: [...this.state.messages, { time: createdAt, user: user, message: message }]
         })
       }
-      console.log(messageArray);
+
     })
+
+
   }
 
+ 
+
+  
      
   
   render() {
+    console.log(this.state.group, this.state.user);
+    // console.log(this.state.messages);
     return (
       <div className="mobile">
         <div className="top"></div>
         <div className="bottom"></div>
+
         <div className="screen">
           <MessageList messages={this.state.messages} />
         </div>
 
-        <button onClick={this.showModal} className="create-user">
+        <button onClick={this.showUserModal} className="create-user">
           Create User
         </button>
 
-        <LoginModal getLoginUser={this.getLoginUser} onClose={this.showModal} show={this.state.show}>
-          Choose your chat username
-        </LoginModal>        
+        <button onClick={this.showGroupModal} className="create-group">
+          New Group
+        </button>
 
-        <SendMessageForm user={this.state.user} getMessage={this.getMessage}/>
+        <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
+          Choose your chat username
+        </EnterUserModal>  
+
+        <ChatGroup getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+          Group name
+          </ChatGroup>     
+
+        <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
       </div>
     );
   }

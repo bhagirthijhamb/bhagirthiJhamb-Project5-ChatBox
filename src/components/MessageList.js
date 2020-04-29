@@ -17,14 +17,12 @@ import Message from './Message'
 // ]
 
 class MessageList extends Component {
-
     render() {
         return (
             <div className="message-list">
                {this.props.messages.map((message, index) => {
                    return (
-                       <Message message={message.message} time={message.time} user={message.user} />
-                    //    <Message key={index} time={message.createdAt} username={message.user} text={message.text} />
+                       <Message key={index} message={message.message} time={message.time} user={message.user} />
                    )
                })}
             </div>

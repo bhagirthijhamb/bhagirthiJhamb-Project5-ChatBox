@@ -3,7 +3,7 @@ import firebase from 'firebase'
 
 class SendMessageForm extends Component {
   constructor(){
-    super()
+    super();
     this.state = {
       message: ''
     }
@@ -30,7 +30,7 @@ class SendMessageForm extends Component {
 
       const dbRef = firebase
         .database()
-        .ref('messages');
+        .ref(`/${this.props.group}`);
       dbRef.push(fullMessage);
 
       this.setState({
@@ -47,6 +47,7 @@ class SendMessageForm extends Component {
   
   render() {
     // console.log(this.state.message);
+    // console.log(this.props.group);
     return (
         <form onSubmit={this.handleSubmit} className="send-message-form" action="">
           <input onChange={this.handleChange} value={this.state.message} type="text" placeholder="Type your message and hit ENTER" />

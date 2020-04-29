@@ -27,7 +27,7 @@ const footerStyle = {
 }
 
 
-class LoginModal extends Component {
+class EnterUserModal extends Component {
   constructor(){
     super()
     this.state = {
@@ -49,12 +49,18 @@ class LoginModal extends Component {
     this.setState({
       user: e.target.value
     })
+    // localStorage.setItem("user", e.target.value);
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.sendUser();
+
+    // this.setState({
+    //   user: ''
+    // })
   }
+
   
   render() {
     console.log(this.state.user);
@@ -71,9 +77,8 @@ class LoginModal extends Component {
         <form onSubmit={this.handleSubmit} action="">
           <input onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
             <div style={footerStyle}>
-              <button>Submit
-                <button onClick={(e) => { this.props.onClose(e); }}>CLose</button>
-            </button>
+              <button className="submit">Submit</button>
+              <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
             </div>
         </form>
           
@@ -83,4 +88,4 @@ class LoginModal extends Component {
   }
 }
 
-export default LoginModal;
+export default EnterUserModal;
