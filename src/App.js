@@ -19,11 +19,11 @@ class App extends Component {
     this.state = {
       userShow: false,
       groupShow: false,
+      time: "",
+      user: `${localStorage.getItem("user")}`,
       message: "",
       messages: [],
-      time: "",
-      user: '',
-      group: '',
+      group: `${localStorage.getItem("group")}`,
       groups: []
     };
   }
@@ -34,6 +34,7 @@ class App extends Component {
       userShow: !this.state.userShow,
     });
   };
+
 
   showGroupModal = () => {
     this.setState({
@@ -50,22 +51,56 @@ class App extends Component {
     this.setState({ 
       user: userName 
     }) 
+    localStorage.setItem("user", userName);
   }
+
+  
 
   getGroupName = (groupName) => {
+    localStorage.setItem("group", groupName);
     this.setState({
       group: groupName
-    })
+    }, this.loadMessages())
   }
 
-  componentDidMount() {
-
-    const dbRef = firebase.database().ref(`messages`);
+  loadMessages = () => {
+    console.log(this.state.group);
+    const dbRef = firebase.database().ref(`/${this.state.group}`);
     // const dbRef = firebase.database().ref(this.state.group);
 
     dbRef.on('value', (response) => {
       const data = response.val();
-      
+
+      this.setState({
+        messages: []
+      })
+
+      // console.log(this.state.messages);
+      for (let key in data) {
+        const { user, message, time } = data[key];
+        const date = new Date(time);
+        const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        // console.log(user, message, createdAt);
+
+        this.setState({
+          time: createdAt,
+          user: user,
+          message: message,
+          messages: [...this.state.messages, { time: createdAt, user: user, message: message }]
+        })
+      }
+    })
+    window.location.reload(false);
+  }
+
+  componentDidMount() {
+
+    const dbRef = firebase.database().ref(`/${this.state.group}`);
+    // const dbRef = firebase.database().ref(this.state.group);
+
+    dbRef.on('value', (response) => {
+      const data = response.val();
+
       this.setState({
         messages: []
 
@@ -84,13 +119,9 @@ class App extends Component {
           messages: [...this.state.messages, { time: createdAt, user: user, message: message }]
         })
       }
-
     })
-
-
-  }
-
- 
+   
+  } 
 
   
      

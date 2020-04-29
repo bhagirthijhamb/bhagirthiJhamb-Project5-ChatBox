@@ -69,17 +69,15 @@ class ChatGroupModal extends Component {
 
     handleChange = (e) => {
         console.log(e.target.value);
+        this.setState({
+            group: e.target.value
+        })
     }
     
     handleSubmit = (e) => {
         e.preventDefault();
-            this.setState({
-                group: e.target.value
-            })
-            this.sendGroupName();
-
-            
-            if (this.state.group !== '') {
+                        
+        if (this.state.groups.indexOf(this.state.group) == -1) {
             const dbRef = firebase.database().ref(`/${this.state.group}`);
             dbRef.push('hello');
         }
@@ -105,7 +103,7 @@ class ChatGroupModal extends Component {
                     <form onSubmit={this.handleSubmit} action="">
                         <input onChange={this.handleChange} value={this.state.user} type="text" placeholder="Group name" />
                         <div style={footerStyle}>
-                            <button className="submit">Submit</button>
+                            <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>

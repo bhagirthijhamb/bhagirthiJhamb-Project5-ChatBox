@@ -49,7 +49,7 @@ class EnterUserModal extends Component {
     this.setState({
       user: e.target.value
     })
-    // localStorage.setItem("user", e.target.value);
+    
   }
 
   handleSubmit = (e) => {
@@ -63,8 +63,7 @@ class EnterUserModal extends Component {
 
   
   render() {
-    console.log(this.state.user);
-    
+    console.log(this.state.user);    
 
     if (!this.props.show) {
       return null;
