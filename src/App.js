@@ -52,94 +52,60 @@ class App extends Component {
       user: userName 
     }) 
     localStorage.setItem("user", userName);
-  }
-
-  
+  }  
 
   getGroupName = (groupName) => {
     localStorage.setItem("group", groupName);
     this.setState({
       group: groupName
-    }, () => { this.loadMessages();})
-    
+    }, () => { this.loadMessages();})    
   }
 
   loadMessages = () => {
-    console.log(this.state.group);
-    const dbRef = firebase.database().ref(`/${this.state.group}`);
+
+    const dbRef2 = firebase.database().ref(`/${this.state.group}`);
     // const dbRef = firebase.database().ref(this.state.group);
 
-    dbRef.on('value', (response) => {
+    dbRef2.on('value', (response) => {
       const data = response.val();
 
+      this.setState({ 
+        messages: [] 
+      }, () => {
+         
+          const copyMessage = [...this.state.messages];
+          for (let key in data) {
+            const { user, message, time } = data[key];
+            const date = new Date(time);
+            const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+            const messageKey = key;
 
-      this.setState({
-        messages: []
-      })
+            const newMessage = {
+              time: createdAt,
+              user: user,
+              message: message,
+              key: messageKey
+            }
 
-      // console.log(this.state.messages);
-      for (let key in data) {
-        const { user, message, time } = data[key];
-        const date = new Date(time);
-        const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        const messageKey = key;
+            copyMessage.push(newMessage);
 
-        console.log(message);
-
-        const copyMessage = [...this.state.messages];
-
-        const newMessage = {
-          time: createdAt, 
-          user: user,         
-          message: message, 
-          key: messageKey
-        }
-
-        copyMessage.push(newMessage);
-
-        console.log(copyMessage);
-
-        this.setState({
-          time: createdAt,
-          user: user,
-          message: message,
-          messages: copyMessage
-        })
-        // console.log(this.state.messages);
+            this.setState({
+              time: createdAt,
+              user: user,
+              message: message,
+              messages: copyMessage
+            })
+            // console.log(this.state.messages);
+          }
       }
+      )     
     })
-    // window.location.reload(false);
   }
 
   componentDidMount() {
 
-    const dbRef = firebase.database().ref(`/${this.state.group}`);
-    // const dbRef = firebase.database().ref(this.state.group);
-
-    dbRef.on('value', (response) => {
-      const data = response.val();
-
-      this.setState({
-        messages: []
-
-      })
-      for (let key in data) {
-        const { user, message, time } = data[key];
-        const date = new Date(time);
-        const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        const messageKey = key;
-        // console.log(user, message, createdAt, messageKey);
-
-        this.setState({
-          time: createdAt,
-          user: user,
-          message: message,
-          messages: [...this.state.messages, { time: createdAt, user: user, message: message, key: messageKey }]
-        })
-      }
-    })   
-  }  
-     
+    this.loadMessages(); 
+  }       
   
   render() {
     return (
@@ -151,7 +117,7 @@ class App extends Component {
         <div className="screen">
           
           
-          <MessageList messages={this.state.messages} />
+          <MessageList messages={this.state.messages} currentGroup={this.state.group} />
 
                    
         </div>
@@ -167,7 +133,7 @@ class App extends Component {
           Choose your chat username
         </EnterUserModal>  
 
-        <ChatGroup getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+        <ChatGroup currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
           Group name
           </ChatGroup>     
 

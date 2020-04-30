@@ -33,7 +33,8 @@ class ChatGroupModal extends Component {
         super()
         this.state = {
             group: '',
-            groups: []
+            groups: [],
+            selectedGroup:''
         }
     }
 
@@ -77,18 +78,35 @@ class ChatGroupModal extends Component {
             dbRef.push('hello');
         }
     }
+
+    handleDeleteGroup = () => {
+        console.log(this.props.currentGroup);
+        console.log(this.state.selectedGroup);
+
+    if(this.state.selectedGroup !== this.props.currentGroup){
+        firebase.database().ref(`${this.state.selectedGroup}`).remove();
+    } else {
+        alert('Cannot delete the current group');
+    }
+}
     
+
+    handleLiClick = (e) => {
+        // e.target.style.backgroundColor = 'red';
+        const selectedGroup = e.target.innerText
+        this.setState({
+            selectedGroup: `${selectedGroup}`
+        }, () => {
+            console.log(this.state.selectedGroup);
+        })
+
+    }
     
     render() {
         // console.log(this.state.group);
         if (!this.props.show) {
             return null;
         }
-
-        // const deleteItem = () => {
-        //     const itemRef = firebase.database().ref(this.state.group)
-        //     itemRef.remove()
-        // }
 
         return (
             <div className="loginBox" style={backdropStyle}>
@@ -99,7 +117,7 @@ class ChatGroupModal extends Component {
                         <ul className="groups">
                             {this.state.groups.map((group, index) => {
                                 return (                                    
-                                    <li className="group" key="index">{group}</li>                                    
+                                    <li className="group" key="index" onClick={e => this.handleLiClick(e)}>{group}</li>                                    
                                 )
                             })}
                         </ul>
@@ -108,11 +126,14 @@ class ChatGroupModal extends Component {
                     <form onSubmit={this.handleSubmit} action="">
                         <input className="input" onChange={this.handleChange} value={this.state.group} type="text" placeholder="Group name" /> 
                         <div style={footerStyle}>
-                            <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>
-                            <button className="close" >Delete</button>
+                            <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>                            
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>
+                    
+                    <button className="close" onClick={() => {
+                        this.handleDeleteGroup();
+                    }}>Delete</button>
                     {/* <ul>
                         {this.state.groups.map((group, index) => {
                             return (

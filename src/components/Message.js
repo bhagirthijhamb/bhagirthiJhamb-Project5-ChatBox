@@ -1,6 +1,13 @@
 import React from 'react';
 
-function Message(props) {   
+import firebase from './../firebase';
+
+function Message(props) {  
+    let remove = messageKey => {
+        const dbRef = firebase.database().ref(`/${props.currentGroup}`);
+        dbRef.child(props.messageKey).remove();
+    }
+    
     return (
         <div className="message">
             <div className="message-time">{props.time}</div>
@@ -8,15 +15,14 @@ function Message(props) {
             <div className="message-text">{props.message}<span></span></div>
             <button
                 className="delete"
-                // onClick={() => {
-                //     remove(msgProp.message.key);
-                // }}
+                onClick={() => {
+                    remove(props.message.key);
+                }}
             >
                 <i className="fas fa-times"></i>
             </button>
         </div>
-    );
-    
+    );    
 }
 
 export default Message;
