@@ -24,7 +24,7 @@ const modalStyle = {
 
 const footerStyle = {
     position: "absolute",
-    bottom: 20
+    bottom: 10
 }
 
 
@@ -51,8 +51,6 @@ class ChatGroupModal extends Component {
         dbRef.on('value', (response) => {
             const data = response.val();
 
-            // console.log(data);
-
             const groupsArray = []
             for (let key in data) {
                 groupsArray.push(key )
@@ -61,14 +59,11 @@ class ChatGroupModal extends Component {
             this.setState({
                 groups: groupsArray
             })
-
-            console.log(this.state.groups)
         })
-
     }
 
     handleChange = (e) => {
-        console.log(e.target.value);
+        // console.log(e.target.value);
         this.setState({
             group: e.target.value
         })
@@ -77,7 +72,7 @@ class ChatGroupModal extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
                         
-        if (this.state.groups.indexOf(this.state.group) == -1) {
+        if (this.state.groups.indexOf(this.state.group) === -1) {
             const dbRef = firebase.database().ref(`/${this.state.group}`);
             dbRef.push('hello');
         }
@@ -85,7 +80,7 @@ class ChatGroupModal extends Component {
     
     
     render() {
-        console.log(this.state.group);
+        // console.log(this.state.group);
         if (!this.props.show) {
             return null;
         }
@@ -100,10 +95,21 @@ class ChatGroupModal extends Component {
                 <div style={modalStyle}>
                     {this.props.children}
 
+                    <div className="group-list">
+                        <ul className="groups">
+                            {this.state.groups.map((group, index) => {
+                                return (                                    
+                                    <li className="group" key="index">{group}</li>                                    
+                                )
+                            })}
+                        </ul>
+                    </div>
+
                     <form onSubmit={this.handleSubmit} action="">
-                        <input onChange={this.handleChange} value={this.state.user} type="text" placeholder="Group name" />
+                        <input className="input" onChange={this.handleChange} value={this.state.group} type="text" placeholder="Group name" /> 
                         <div style={footerStyle}>
                             <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>
+                            <button className="close" >Delete</button>
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>

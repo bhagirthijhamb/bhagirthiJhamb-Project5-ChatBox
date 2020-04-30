@@ -30,7 +30,7 @@ class App extends Component {
 
   showUserModal = () => {
     this.setState({
-      ...this.state,
+      // ...this.state,
       userShow: !this.state.userShow,
     });
   };
@@ -38,7 +38,7 @@ class App extends Component {
 
   showGroupModal = () => {
     this.setState({
-      ...this.state,
+      // ...this.state,
       groupShow: !this.state.groupShow,
     });
   };
@@ -60,7 +60,8 @@ class App extends Component {
     localStorage.setItem("group", groupName);
     this.setState({
       group: groupName
-    }, this.loadMessages())
+    }, () => { this.loadMessages();})
+    
   }
 
   loadMessages = () => {
@@ -71,6 +72,7 @@ class App extends Component {
     dbRef.on('value', (response) => {
       const data = response.val();
 
+
       this.setState({
         messages: []
       })
@@ -80,17 +82,33 @@ class App extends Component {
         const { user, message, time } = data[key];
         const date = new Date(time);
         const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        // console.log(user, message, createdAt);
+        const messageKey = key;
+
+        console.log(message);
+
+        const copyMessage = [...this.state.messages];
+
+        const newMessage = {
+          time: createdAt, 
+          user: user,         
+          message: message, 
+          key: messageKey
+        }
+
+        copyMessage.push(newMessage);
+
+        console.log(copyMessage);
 
         this.setState({
           time: createdAt,
           user: user,
           message: message,
-          messages: [...this.state.messages, { time: createdAt, user: user, message: message }]
+          messages: copyMessage
         })
+        // console.log(this.state.messages);
       }
     })
-    window.location.reload(false);
+    // window.location.reload(false);
   }
 
   componentDidMount() {
@@ -105,46 +123,45 @@ class App extends Component {
         messages: []
 
       })
-      // console.log(this.state.messages);
       for (let key in data) {
         const { user, message, time } = data[key];
         const date = new Date(time);
         const createdAt = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-        // console.log(user, message, createdAt);
+        const messageKey = key;
+        // console.log(user, message, createdAt, messageKey);
 
         this.setState({
           time: createdAt,
           user: user,
           message: message,
-          messages: [...this.state.messages, { time: createdAt, user: user, message: message }]
+          messages: [...this.state.messages, { time: createdAt, user: user, message: message, key: messageKey }]
         })
       }
-    })
-   
-  } 
-
-  
+    })   
+  }  
      
   
   render() {
-    console.log(this.state.group, this.state.user);
-    // console.log(this.state.messages);
     return (
       <div className="mobile">
         <div className="top"></div>
         <div className="bottom"></div>
+        <div className="topBar"></div>
 
         <div className="screen">
+          
+          
           <MessageList messages={this.state.messages} />
+
+                   
         </div>
 
         <button onClick={this.showUserModal} className="create-user">
           Create User
         </button>
-
         <button onClick={this.showGroupModal} className="create-group">
           New Group
-        </button>
+        </button> 
 
         <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
           Choose your chat username

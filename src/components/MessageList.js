@@ -22,7 +22,7 @@ class MessageList extends Component {
             <div className="message-list">
                {this.props.messages.map((message, index) => {
                    return (
-                       <Message key={index} message={message.message} time={message.time} user={message.user} />
+                       <Message key={index} messageKey={message.key} message={message.message} time={message.time} user={message.user} />
                    )
                })}
             </div>

@@ -28,3 +28,19 @@ button {
     color: #fff;
     font-size: .8rem;
 }
+
+.group-list
+{
+  height: 180px;
+  overflow-y: scroll;
+
+  & li:hover {
+    background: pink;
+  }
+}
+
+.group{
+  cursor: pointer;
+}
+
+

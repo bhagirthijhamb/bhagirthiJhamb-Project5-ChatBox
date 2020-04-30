@@ -17,8 +17,6 @@ class SendMessageForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.message);
-    // this.sendMessage();
 
     const fullMessage = {
         message: this.state.message,
@@ -43,6 +41,10 @@ class SendMessageForm extends Component {
     this.setState({
       message: e.target.value
     })
+  }
+
+  handleDelete = (e) => {
+    e.preventDefault();
   }
   
   render() {

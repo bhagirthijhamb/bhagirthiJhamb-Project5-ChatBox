@@ -63,7 +63,7 @@ class EnterUserModal extends Component {
 
   
   render() {
-    console.log(this.state.user);    
+    // console.log(this.state.user);    
 
     if (!this.props.show) {
       return null;
