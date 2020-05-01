@@ -7,9 +7,14 @@ function Message(props) {
         const dbRef = firebase.database().ref(`/${props.currentGroup}`);
         dbRef.child(props.messageKey).remove();
     }
-    
+
+    let className = 'message'
+    if (props.currentUser === props.user) {
+        className = 'myMessage'
+    }
+
     return (
-        <div className="message">
+        <div className={className}>
             <div className="message-top">
                 <div className="message-time">{props.time}</div>
                 <div className="message-username">{props.user}</div>

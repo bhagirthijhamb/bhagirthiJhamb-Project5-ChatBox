@@ -13,6 +13,9 @@ const backdropStyle = {
 }
 
 const modalStyle = {
+    position: 'absolute',
+    top: '20%',
+    left: 0,
     backgroundColor: '#fff',
     borderRadius: 8,
     maxWidth: 250,
@@ -72,16 +75,36 @@ class ChatGroupModal extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
-                        
-        if (this.state.groups.indexOf(this.state.group) === -1) {
+
+        if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
+            alert('Please choose username');
+        } else {
+             if (this.state.groups.indexOf(this.state.group) === -1) {
             const dbRef = firebase.database().ref(`/${this.state.group}`);
-            dbRef.push('hello');
+            dbRef.push({
+                message: 'Welcome to the group',
+                time: firebase.database.ServerValue.TIMESTAMP,
+                user: this.props.user
+            });
+        }
+        }
+                        
+       
+    }
+
+
+    // Checks if username is there before creating group
+    handleSendGroupName = () => {       
+        if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
+            console.log('no user')
+        } else {
+            this.sendGroupName();
         }
     }
 
     handleDeleteGroup = () => {
-        if(this.state.selectedGroup !== this.props.currentGroup){
-            firebase.database().ref(`${this.state.selectedGroup}`).remove();
+        if(this.state.group !== this.props.currentGroup){
+            firebase.database().ref(`${this.state.group}`).remove();
         } else {
             alert('Cannot delete the current group');
         }
@@ -91,7 +114,7 @@ class ChatGroupModal extends Component {
         // e.target.style.backgroundColor = 'red';
         const selectedGroup = e.target.innerText
         this.setState({
-            selectedGroup: `${selectedGroup}`
+           group: `${selectedGroup}`
         }, () => {
             // console.log(this.state.selectedGroup);
         })
@@ -120,7 +143,7 @@ class ChatGroupModal extends Component {
                     <form onSubmit={this.handleSubmit} action="">
                         <input className="input" onChange={this.handleChange} value={this.state.group} type="text" placeholder="Group name" /> 
                         <div style={footerStyle}>
-                            <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>                            
+                            <button className="submit" onClick={this.handleSendGroupName()}>Submit</button>                            
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>

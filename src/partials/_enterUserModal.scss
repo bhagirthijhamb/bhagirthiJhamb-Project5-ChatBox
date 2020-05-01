@@ -1,17 +1,6 @@
 .loginBox {
     text-align: center;
-}
-
-.create-user {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-}
-
-.create-group {
-  position: absolute;
-  top: 2px;
-  left: 2px;
+    position: relative;
 }
 
 .close {
@@ -27,4 +16,10 @@
 
 .message-list {
    padding-left: 15px;
+}
+
+
+.loginInput {
+  margin-bottom: 10px;
+  margin-top: 22px;
 }

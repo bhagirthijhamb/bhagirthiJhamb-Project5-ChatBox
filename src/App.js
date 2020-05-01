@@ -119,21 +119,23 @@ class App extends Component {
           <div className="topBar"></div>
 
           <div className="screen">
-            <MessageList messages={this.state.messages} currentGroup={this.state.group} />
+            <MessageList currentUser={this.state.user} messages={this.state.messages} currentGroup={this.state.group} />
           </div>
 
           <button onClick={this.showUserModal} className="create-user">
             Create User
+          </button>
+          <button className="current-group">
+            {this.state.group}
           </button>
           <button onClick={this.showGroupModal} className="create-group">
             New Group
           </button> 
 
           <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
-            <h2 className="modalHeader">Enter username</h2>
           </EnterUserModal>  
 
-          <ChatGroup currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+          <ChatGroup user={this.state.user} currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
             <h2 className="modalHeader">Group Name</h2>
             </ChatGroup>     
 

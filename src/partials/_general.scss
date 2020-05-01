@@ -27,14 +27,41 @@ body {
   // background-blend-mode: lighten;
 }
 
+// ------------BUTTONS--------------------
+
 button {
     border-radius: 5px;
     border: 1px solid rgb(7, 155, 7);
-    padding: 4px 10px;
+    padding: 3px 6px;
     background-color: rgb(7, 155, 7);
     color: #fff;
-    font-size: .8rem;
+    font-size: .7rem;
 }
+
+.create-user {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.create-group {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+
+.current-group {
+   font-size: .9rem;
+  position: absolute;
+  top: 2px;
+  left: 100px;
+  background: pink;
+  border: 1px solid grey;
+  color: #444;
+}
+
+// -------------------HEADER---------------------
 
 header {
   background: rgb(246, 246, 246);
@@ -84,9 +111,6 @@ h1 {
   font-size: .8rem;
 }
 
-.loginInput {
-  margin-bottom: 10px;
-  margin-top: 22px;
-}
+
 
 

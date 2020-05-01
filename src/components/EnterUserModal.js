@@ -8,10 +8,13 @@ const backdropStyle = {
     left: 0,
     right: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    padding: 50
+    padding: 50,
 }
 
 const modalStyle = {
+    position: 'absolute',
+    top: '30%',
+    left: 0,
     backgroundColor: '#fff',
     borderRadius: 8,
     maxWidth: 250,
@@ -71,16 +74,16 @@ class EnterUserModal extends Component {
     return (
       <div className="loginBox" style={backdropStyle}>
         <div style={modalStyle}>
+          <h2 className="modalHeader">Enter username</h2>
           {this.props.children}
 
-        <form onSubmit={this.handleSubmit} action="">
-            <input className="input loginInput" onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
-            <div style={footerStyle}>
-              <button className="submit">Submit</button>
-              <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
-            </div>
-        </form>
-          
+            <form onSubmit={this.handleSubmit} action="">
+                <input className="input loginInput" onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
+                <div style={footerStyle}>
+                  <button className="submit">Submit</button>
+                  <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
+                </div>
+            </form>          
         </div>
       </div>
     );

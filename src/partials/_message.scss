@@ -39,6 +39,20 @@
   & .message-username {
     margin-left: 25px;
     font-weight: bold;
-    color: rgb(206, 90, 128);
+    color: $color-tertiary;
+  }
+}
+
+.myMessage {
+  background: $color-secondary;
+  padding: 6px 12px 3px 12px;
+  margin: 4px 0;
+  border-radius: 8px;
+  position: relative;
+
+   & .deleteIcon {
+    position: absolute;
+    right: 10px;
+    top: 8px;
   }
 }

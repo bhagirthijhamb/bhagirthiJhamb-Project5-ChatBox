@@ -23,7 +23,7 @@ class MessageList extends Component {
             <div className="message-list">
                {this.props.messages.map((message, index) => {
                    return (
-                       <Message key={index} messageKey={message.key} message={message.message} time={message.time} user={message.user} currentGroup={this.props.currentGroup}/>
+                       <Message key={index} currentUser={this.props.currentUser} messageKey={message.key} message={message.message} time={message.time} user={message.user} currentGroup={this.props.currentGroup}/>
                    )
                })}
             </div>

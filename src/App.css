@@ -1,5 +1,6 @@
 .loginBox {
   text-align: center;
+  position: relative;
 }
 
 .create-user {
@@ -27,6 +28,11 @@
 
 .message-list {
   padding-left: 15px;
+}
+
+.loginInput {
+  margin-bottom: 10px;
+  margin-top: 22px;
 }
 
 .mobile {
@@ -378,11 +384,6 @@ h1 {
   /* Firefox 18- */
   color: grey;
   font-size: .8rem;
-}
-
-.loginInput {
-  margin-bottom: 10px;
-  margin-top: 22px;
 }
 
 .message {
