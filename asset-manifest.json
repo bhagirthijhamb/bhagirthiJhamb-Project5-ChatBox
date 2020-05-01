@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/bhagirthiJhamb-Project5-ChatBox/static/css/main.02d4ada1.chunk.css",
+    "main.js": "/bhagirthiJhamb-Project5-ChatBox/static/js/main.fd19106d.chunk.js",
+    "main.js.map": "/bhagirthiJhamb-Project5-ChatBox/static/js/main.fd19106d.chunk.js.map",
+    "runtime-main.js": "/bhagirthiJhamb-Project5-ChatBox/static/js/runtime-main.2edb84cb.js",
+    "runtime-main.js.map": "/bhagirthiJhamb-Project5-ChatBox/static/js/runtime-main.2edb84cb.js.map",
+    "static/js/2.d206a9ab.chunk.js": "/bhagirthiJhamb-Project5-ChatBox/static/js/2.d206a9ab.chunk.js",
+    "static/js/2.d206a9ab.chunk.js.map": "/bhagirthiJhamb-Project5-ChatBox/static/js/2.d206a9ab.chunk.js.map",
+    "index.html": "/bhagirthiJhamb-Project5-ChatBox/index.html",
+    "precache-manifest.a0a9526522c297262c17ed92bd34ed37.js": "/bhagirthiJhamb-Project5-ChatBox/precache-manifest.a0a9526522c297262c17ed92bd34ed37.js",
+    "service-worker.js": "/bhagirthiJhamb-Project5-ChatBox/service-worker.js",
+    "static/css/main.02d4ada1.chunk.css.map": "/bhagirthiJhamb-Project5-ChatBox/static/css/main.02d4ada1.chunk.css.map",
+    "static/js/2.d206a9ab.chunk.js.LICENSE.txt": "/bhagirthiJhamb-Project5-ChatBox/static/js/2.d206a9ab.chunk.js.LICENSE.txt",
+    "static/media/App.scss": "/bhagirthiJhamb-Project5-ChatBox/static/media/backgroundImg.94c22391.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2edb84cb.js",
+    "static/js/2.d206a9ab.chunk.js",
+    "static/css/main.02d4ada1.chunk.css",
+    "static/js/main.fd19106d.chunk.js"
+  ]
+}
