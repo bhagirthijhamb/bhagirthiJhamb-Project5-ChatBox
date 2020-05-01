@@ -76,9 +76,9 @@ class ChatGroupModal extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
 
-        if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
-            alert('Please choose username');
-        } else {
+        // if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
+        //     alert('Please choose username');
+        // } else {
              if (this.state.groups.indexOf(this.state.group) === -1) {
             const dbRef = firebase.database().ref(`/${this.state.group}`);
             dbRef.push({
@@ -87,7 +87,7 @@ class ChatGroupModal extends Component {
                 user: this.props.user
             });
         }
-        }
+        // }
                         
        
     }
@@ -95,11 +95,11 @@ class ChatGroupModal extends Component {
 
     // Checks if username is there before creating group
     handleSendGroupName = () => {       
-        if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
-            console.log('no user')
-        } else {
+        // if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
+        //     console.log('no user')
+        // } else {
             this.sendGroupName();
-        }
+        // }
     }
 
     handleDeleteGroup = () => {

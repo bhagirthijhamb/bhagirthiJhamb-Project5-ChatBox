@@ -21,13 +21,15 @@ class App extends Component {
       userShow: false,
       groupShow: false,
       time: "",
-      user: `${localStorage.getItem("user")}`,
+      user: `${localStorage.getItem("user") ? localStorage.getItem("user") : 'user'}`,
       message: "",
       messages: [],
-      group: `${localStorage.getItem("group")}`,
+      group: `${localStorage.getItem("group") ? localStorage.getItem("group") : 'Messages'}`,
       groups: []
     };
   }
+
+
 
   showUserModal = () => {
     this.setState({
