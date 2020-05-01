@@ -1,0 +1,13 @@
+.group-list
+{
+  height: 180px;
+  overflow-y: scroll;
+
+  & li:hover {
+    background: rgb(226, 226, 226);
+  }
+}
+
+.group{
+  cursor: pointer;
+}

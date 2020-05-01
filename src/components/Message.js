@@ -10,8 +10,11 @@ function Message(props) {
     
     return (
         <div className="message">
-            <div className="message-time">{props.time}</div>
-            <div className="message-username">{props.user}</div>
+            <div className="message-top">
+                <div className="message-time">{props.time}</div>
+                <div className="message-username">{props.user}</div>
+            </div>
+           
             <div className="message-text">{props.message}<span></span></div>
             <button
                 className="delete"
@@ -19,7 +22,7 @@ function Message(props) {
                     remove(props.message.key);
                 }}
             >
-                <i className="fas fa-times"></i>
+                <i className="fas fa-times deleteIcon"></i>
             </button>
         </div>
     );    

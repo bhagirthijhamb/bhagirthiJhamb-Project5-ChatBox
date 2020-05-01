@@ -1,10 +1,23 @@
 
+.message {
+  background: rgb(235, 236, 236);
+  padding: 6px 12px 3px 12px;
+  margin: 4px 0;
+  border-radius: 8px;
+  position: relative;
+
+  & .deleteIcon {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+  }
+}
 .message-text {
   display: inline-block;
   padding: 3px 8px;
   margin-left: 10px;
   border-radius: 6px;
-  background: paleturquoise;
+  
 }
 
 .delete {
@@ -13,6 +26,19 @@
 
   & i {
     color: rgb(141, 140, 140);
-    font-size: 17px;
+    font-size: 12px;
+  }
+}
+
+.message-top {
+  display: flex;
+  justify-content: flex-start;
+  font-size: .7rem;
+  margin-bottom: 5px;
+
+  & .message-username {
+    margin-left: 25px;
+    font-weight: bold;
+    color: rgb(206, 90, 128);
   }
 }

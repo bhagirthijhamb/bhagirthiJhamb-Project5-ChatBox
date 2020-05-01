@@ -17,13 +17,13 @@ const modalStyle = {
     maxWidth: 250,
     minHeight: 150,
     margin: '0 auto',
-    padding: 30,
+    padding: 10,
     position: "relative"
 };
 
 const footerStyle = {
     position: "absolute",
-    bottom: 20
+    bottom: 10
 }
 
 
@@ -74,7 +74,7 @@ class EnterUserModal extends Component {
           {this.props.children}
 
         <form onSubmit={this.handleSubmit} action="">
-          <input onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
+            <input className="input loginInput" onChange={this.handleChange} value={this.state.user} type="text" placeholder="Username" />
             <div style={footerStyle}>
               <button className="submit">Submit</button>
               <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>

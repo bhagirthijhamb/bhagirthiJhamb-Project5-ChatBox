@@ -18,7 +18,7 @@ const modalStyle = {
     maxWidth: 250,
     minHeight: 150,
     margin: '0 auto',
-    padding: 30,
+    padding: 10,
     position: "relative"
 };
 
@@ -80,16 +80,12 @@ class ChatGroupModal extends Component {
     }
 
     handleDeleteGroup = () => {
-        console.log(this.props.currentGroup);
-        console.log(this.state.selectedGroup);
-
-    if(this.state.selectedGroup !== this.props.currentGroup){
-        firebase.database().ref(`${this.state.selectedGroup}`).remove();
-    } else {
-        alert('Cannot delete the current group');
-    }
-}
-    
+        if(this.state.selectedGroup !== this.props.currentGroup){
+            firebase.database().ref(`${this.state.selectedGroup}`).remove();
+        } else {
+            alert('Cannot delete the current group');
+        }
+    }    
 
     handleLiClick = (e) => {
         // e.target.style.backgroundColor = 'red';
@@ -97,13 +93,11 @@ class ChatGroupModal extends Component {
         this.setState({
             selectedGroup: `${selectedGroup}`
         }, () => {
-            console.log(this.state.selectedGroup);
+            // console.log(this.state.selectedGroup);
         })
-
     }
     
     render() {
-        // console.log(this.state.group);
         if (!this.props.show) {
             return null;
         }
@@ -130,19 +124,10 @@ class ChatGroupModal extends Component {
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>
-                    
+
                     <button className="close" onClick={() => {
                         this.handleDeleteGroup();
                     }}>Delete</button>
-                    {/* <ul>
-                        {this.state.groups.map((group, index) => {
-                            return (
-                                <li onClick={deleteItem}>{group}</li>
-                            )
-                        })}
-
-                    </ul> */}
-
                 </div>
             </div>
         );

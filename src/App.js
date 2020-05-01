@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 // import components
+import Welcome from './components/Welcome';
 import EnterUserModal from './components/EnterUserModal';
 import MessageList from './components/MessageList';
 import ChatGroup from './components/ChatGroup';
@@ -109,35 +110,35 @@ class App extends Component {
   
   render() {
     return (
-      <div className="mobile">
-        <div className="top"></div>
-        <div className="bottom"></div>
-        <div className="topBar"></div>
+      <div className="wrapper">
+        <Welcome />
+        <h1>Chat Box</h1>
+        <div className="mobile">
+          <div className="top"></div>
+          <div className="bottom"></div>
+          <div className="topBar"></div>
 
-        <div className="screen">
-          
-          
-          <MessageList messages={this.state.messages} currentGroup={this.state.group} />
+          <div className="screen">
+            <MessageList messages={this.state.messages} currentGroup={this.state.group} />
+          </div>
 
-                   
+          <button onClick={this.showUserModal} className="create-user">
+            Create User
+          </button>
+          <button onClick={this.showGroupModal} className="create-group">
+            New Group
+          </button> 
+
+          <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
+            <h2 className="modalHeader">Enter username</h2>
+          </EnterUserModal>  
+
+          <ChatGroup currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+            <h2 className="modalHeader">Group Name</h2>
+            </ChatGroup>     
+
+          <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
         </div>
-
-        <button onClick={this.showUserModal} className="create-user">
-          Create User
-        </button>
-        <button onClick={this.showGroupModal} className="create-group">
-          New Group
-        </button> 
-
-        <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
-          Choose your chat username
-        </EnterUserModal>  
-
-        <ChatGroup currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
-          Group name
-          </ChatGroup>     
-
-        <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
       </div>
     );
   }
