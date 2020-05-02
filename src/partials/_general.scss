@@ -32,7 +32,7 @@ body {
 button {
     border-radius: 5px;
     border: 1px solid rgb(7, 155, 7);
-    padding: 3px 6px;
+    padding: 3px 12px;
     background-color: rgb(7, 155, 7);
     color: #fff;
     font-size: .7rem;
@@ -41,22 +41,24 @@ button {
 .create-user {
   position: absolute;
   top: 2px;
-  right: 2px;
+  right: 10px;
 }
 
 .create-group {
   position: absolute;
   top: 2px;
-  left: 2px;
+  left: 10px;
 }
 
 
 .current-group {
-   font-size: .9rem;
+  width: 142px;
+  //  font-size: .9rem;
+  font-weight: bold;
   position: absolute;
   top: 2px;
-  left: 100px;
-  background: pink;
+  left: 86px;
+  background: $color-secondary;
   border: 1px solid grey;
   color: #444;
 }

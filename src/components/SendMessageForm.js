@@ -52,7 +52,7 @@ class SendMessageForm extends Component {
     // console.log(this.props.group);
     return (
         <form onSubmit={this.handleSubmit} className="send-message-form" action="">
-          <input onChange={this.handleChange} value={this.state.message} type="text" placeholder="Type your message and hit ENTER" />
+          <input onChange={this.handleChange} value={this.state.message} type="text" placeholder="Type your message and hit ENTER" required />
           <button onClick={this.handleSubmit} className="send-message">
             Send
           </button>

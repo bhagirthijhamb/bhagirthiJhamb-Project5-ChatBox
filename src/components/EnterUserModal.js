@@ -57,11 +57,9 @@ class EnterUserModal extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.sendUser();
-
-    // this.setState({
-    //   user: ''
-    // })
+    if(this.state.user) {
+      this.sendUser();
+    }
   }
 
   

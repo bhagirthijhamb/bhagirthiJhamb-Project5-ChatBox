@@ -42,7 +42,12 @@ class ChatGroupModal extends Component {
     }
 
     sendGroupName = () => {
-        this.props.getGroupName(this.state.group)
+        if(this.state.group) {
+            this.props.getGroupName(this.state.group)
+        }
+        else {
+            alert('Select a group');
+        }
     }
 
     onclose = (e) => {
@@ -75,22 +80,28 @@ class ChatGroupModal extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
-        if (this.state.groups.indexOf(this.state.group) === -1) {
-            const dbRef = firebase.database().ref(`/${this.state.group}`);
-            dbRef.push({
-                message: 'Welcome to the group !',
-                time: firebase.database.ServerValue.TIMESTAMP,
-                user: this.props.currentUser
-            });
+        if(this.state.group) {
+            if (this.state.groups.indexOf(this.state.group) === -1) {
+                const dbRef = firebase.database().ref(`/${this.state.group}`);
+                dbRef.push({
+                    message: 'Welcome to the group !',
+                    time: firebase.database.ServerValue.TIMESTAMP,
+                    user: this.props.currentUser
+                });
+            }
         }
     }
 
     handleDeleteGroup = () => {
-        if(this.state.group !== this.props.currentGroup){
-            firebase.database().ref(`${this.state.group}`).remove();
+        if(!this.state.group){
+            alert('Select a group');
         } else {
-            alert('Cannot delete the current group');
-        }
+            if((this.state.group) && (this.state.group !== this.props.currentGroup)){
+                firebase.database().ref(`${this.state.group}`).remove();
+            } else {
+                alert('Cannot delete the current group');
+            }
+        }        
     }    
 
     handleLiClick = (e) => {
@@ -130,7 +141,7 @@ class ChatGroupModal extends Component {
                         </div>
                     </form>
 
-                    <button className="close" onClick={() => {
+                    <button className="deleteGroup" onClick={() => {
                         this.handleDeleteGroup();
                     }}>Delete</button>
                 </div>

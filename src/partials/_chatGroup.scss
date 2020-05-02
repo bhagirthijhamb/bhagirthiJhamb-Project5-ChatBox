@@ -3,12 +3,27 @@
   height: 180px;
   overflow-y: scroll;
 
-  & li:hover {
+  & li {
+    text-align: left;
     background: rgb(226, 226, 226);
+    margin: 2px 0;
+    font-size: .8rem;
+    padding: 2px 4px;
+    padding-left: 8px;
+    border-radius: 4px
+  }
+
+  & li:hover {
+    background: $color-secondary;
   }
 }
 
 .group{
   cursor: pointer;
 }
+
+.deleteGroup {
+  margin-left: 140px;
+}
+
 

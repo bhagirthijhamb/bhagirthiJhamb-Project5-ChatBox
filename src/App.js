@@ -142,13 +142,13 @@ class App extends Component {
           
 
           <button onClick={this.showUserModal} className="create-user">
-            Create User
+            User
           </button>
           <button className="current-group">
             {this.state.group}
           </button>
           <button onClick={this.showGroupModal} className="create-group">
-            New Group
+            Group
           </button> 
 
           <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
