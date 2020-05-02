@@ -75,31 +75,14 @@ class ChatGroupModal extends Component {
     
     handleSubmit = (e) => {
         e.preventDefault();
-
-        // if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
-        //     alert('Please choose username');
-        // } else {
-             if (this.state.groups.indexOf(this.state.group) === -1) {
+        if (this.state.groups.indexOf(this.state.group) === -1) {
             const dbRef = firebase.database().ref(`/${this.state.group}`);
             dbRef.push({
-                message: 'Welcome to the group',
+                message: 'Welcome to the group !',
                 time: firebase.database.ServerValue.TIMESTAMP,
-                user: this.props.user
+                user: this.props.currentUser
             });
         }
-        // }
-                        
-       
-    }
-
-
-    // Checks if username is there before creating group
-    handleSendGroupName = () => {       
-        // if(!this.props.user || this.props.user === '' || this.props.user === 'null'){
-        //     console.log('no user')
-        // } else {
-            this.sendGroupName();
-        // }
     }
 
     handleDeleteGroup = () => {
@@ -111,7 +94,6 @@ class ChatGroupModal extends Component {
     }    
 
     handleLiClick = (e) => {
-        // e.target.style.backgroundColor = 'red';
         const selectedGroup = e.target.innerText
         this.setState({
            group: `${selectedGroup}`
@@ -143,7 +125,7 @@ class ChatGroupModal extends Component {
                     <form onSubmit={this.handleSubmit} action="">
                         <input className="input" onChange={this.handleChange} value={this.state.group} type="text" placeholder="Group name" /> 
                         <div style={footerStyle}>
-                            <button className="submit" onClick={this.handleSendGroupName()}>Submit</button>                            
+                            <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>                            
                             <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>

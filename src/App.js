@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 // import components
 import Welcome from './components/Welcome';
@@ -93,8 +94,8 @@ class App extends Component {
             copyMessage.push(newMessage);
 
             this.setState({
-              time: createdAt,
-              user: user,
+              // time: createdAt,
+              // user: user,
               message: message,
               messages: copyMessage
             })
@@ -105,10 +106,24 @@ class App extends Component {
     })
   }
 
+  scrollToBottom(){
+        this.el.scrollIntoView({ behavior: 'smooth'});
+    }
+
   componentDidMount() {
 
     this.loadMessages(); 
+    this.scrollToBottom();
   }       
+
+  componentDidUpdate(){
+    this.scrollToBottom();
+  }
+
+  // componentDidUpdate(){
+  //   const node = ReactDOM.findDOMNode(this);
+  //   node.scrollTop = node.scrollHeight - node.clientHeight;
+  // }
   
   render() {
     return (
@@ -122,7 +137,9 @@ class App extends Component {
 
           <div className="screen">
             <MessageList currentUser={this.state.user} messages={this.state.messages} currentGroup={this.state.group} />
+            <div ref={el => { this.el = el; }} />
           </div>
+          
 
           <button onClick={this.showUserModal} className="create-user">
             Create User
@@ -137,7 +154,7 @@ class App extends Component {
           <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
           </EnterUserModal>  
 
-          <ChatGroup user={this.state.user} currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+          <ChatGroup currentUser={this.state.user} currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
             <h2 className="modalHeader">Group Name</h2>
             </ChatGroup>     
 
