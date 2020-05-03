@@ -13,7 +13,7 @@ const backdropStyle = {
 
 const modalStyle = {
     position: 'absolute',
-    top: '30%',
+    top: '20%',
     left: 0,
     backgroundColor: '#fff',
     borderRadius: 8,
