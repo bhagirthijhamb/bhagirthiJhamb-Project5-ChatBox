@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "18ec3ffbfb3d1a85d0af6876f7cf1383",
+    "revision": "fcd48c6c07f1ffcd377b95763100fb34",
     "url": "/bhagirthiJhamb-Project5-ChatBox/index.html"
   },
   {
-    "revision": "7f9c9b8020571a89d7de",
-    "url": "/bhagirthiJhamb-Project5-ChatBox/static/css/main.5a7308c6.chunk.css"
+    "revision": "24c85d9b146731d26d42",
+    "url": "/bhagirthiJhamb-Project5-ChatBox/static/css/main.922df287.chunk.css"
   },
   {
     "revision": "25cd0de752f6b8095800",
@@ -16,7 +16,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bhagirthiJhamb-Project5-ChatBox/static/js/2.11000377.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "7f9c9b8020571a89d7de",
+    "revision": "24c85d9b146731d26d42",
     "url": "/bhagirthiJhamb-Project5-ChatBox/static/js/main.3e09858d.chunk.js"
   },
   {
