@@ -1,0 +1,19 @@
+.footer {
+  background: #eee;
+  font-weight: bold;
+  color: black;
+  border-radius: .5rem;
+  padding: 1rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+
+@media (max-width: 710px) {
+    .footer {
+        font-size: .8rem;
+        border-radius: .4rem;
+        padding: .8rem;
+        margin-top: .5rem;
+    }
+}

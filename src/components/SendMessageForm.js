@@ -15,9 +15,9 @@ class SendMessageForm extends Component {
     })
   }
 
+// 🎁 Function to add new message to the database
   handleSubmit = (e) => {
     e.preventDefault();
-
     const fullMessage = {
         message: this.state.message,
         time: firebase.database.ServerValue.TIMESTAMP,
@@ -25,7 +25,6 @@ class SendMessageForm extends Component {
       }
 
     if (this.state.message !== '') {
-
       const dbRef = firebase
         .database()
         .ref(`/${this.props.group}`);
@@ -48,8 +47,6 @@ class SendMessageForm extends Component {
   }
   
   render() {
-    // console.log(this.state.message);
-    // console.log(this.props.group);
     return (
         <form onSubmit={this.handleSubmit} className="send-message-form" action="">
           <input onChange={this.handleChange} value={this.state.message} type="text" placeholder="Type your message and hit ENTER" required />

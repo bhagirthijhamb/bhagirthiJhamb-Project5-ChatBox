@@ -7,11 +7,12 @@ import EnterUserModal from './components/EnterUserModal';
 import MessageList from './components/MessageList';
 import ChatGroup from './components/ChatGroup';
 import SendMessageForm from "./components/SendMessageForm";
+import Footer from './components/Footer';
 
 // import firebase
 import firebase from './firebase';
 
-// CSS for the `App` component
+// CSS for the App
 import "./App.scss";
 
 
@@ -30,16 +31,16 @@ class App extends Component {
     };
   }
 
+  // 🎁 Function to toggle the User Modal
   showUserModal = () => {
     this.setState({
-      // ...this.state,
       userShow: !this.state.userShow,
     });
   };
 
+  // 🎁 Function to toggle the Group Modal
   showGroupModal = () => {
     this.setState({
-      // ...this.state,
       groupShow: !this.state.groupShow,
     });
   };
@@ -48,6 +49,7 @@ class App extends Component {
     this.props.onClose && this.props.onClose(e);
   };
 
+  // 🎁 Function to get User from EnterUserModal Component
   getLoginUser = (userName) => { 
     this.setState({ 
       user: userName 
@@ -55,6 +57,7 @@ class App extends Component {
     localStorage.setItem("user", userName);
   }  
 
+// 🎁 Function to get Group from ChatGroup Component
   getGroupName = (groupName) => {
     localStorage.setItem("group", groupName);
     this.setState({
@@ -62,6 +65,7 @@ class App extends Component {
     }, () => { this.loadMessages();})    
   }
 
+// 🎁 Function to fetch messages from Firebase database
   loadMessages = () => {
     const dbRef = firebase.database().ref(`/${this.state.group}`);
 
@@ -97,6 +101,7 @@ class App extends Component {
     })
   }
 
+// 🎁 Function to keep the current message in view
   scrollToBottom = () => {
       const messageList = document.querySelector(".screen");
       messageList.scrollTop = messageList.scrollHeight - messageList.clientHeight;
@@ -113,10 +118,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="wrapper">        
+      <div className="wrapper">    
+      <a class="skip-main" href="#main">Skip to main content</a>    
         <Welcome className="information" />
         <div className="chatBox">
-          <h1>Chat Box</h1>
           <div className="mobile">
             <div className="top"></div>
             <div className="bottom"></div>
@@ -133,7 +138,7 @@ class App extends Component {
             <div className="current-group">
               {this.state.group}
             </div>
-            <button onClick={this.showGroupModal} className="create-group">
+            <button id="main" onClick={this.showGroupModal} className="create-group">
               Group
             </button> 
 
@@ -145,8 +150,10 @@ class App extends Component {
               </ChatGroup>     
 
             <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
+
           </div>
         </div>
+            <Footer />
       </div>
     );
   }

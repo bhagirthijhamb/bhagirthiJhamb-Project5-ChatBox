@@ -3,12 +3,15 @@ import React from 'react';
 import firebase from './../firebase';
 
 function Message(props) {  
+
+    // 🎁 Function to delete a message
     let remove = messageKey => {
         const dbRef = firebase.database().ref(`/${props.currentGroup}`);
         dbRef.child(props.messageKey).remove();
     }
 
-    let className = 'message'
+    // // 🎁 Style the current user messages
+    let className = 'message';
     if (props.currentUser === props.user) {
         className = 'myMessage'
     }
@@ -21,14 +24,14 @@ function Message(props) {
             </div>
            
             <div className="message-text">{props.message}<span></span></div>
-            <button
+            <div
                 className="delete"
                 onClick={() => {
                     remove(props.message.key);
                 }}
             >
                 <i className="fas fa-times deleteIcon"></i>
-            </button>
+            </div>
         </div>
     );    
 }

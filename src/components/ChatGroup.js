@@ -41,6 +41,7 @@ class ChatGroupModal extends Component {
         }
     }
 
+// 🎁 Function to send group to App.js
     sendGroupName = () => {
         if(this.state.group) {
             this.props.getGroupName(this.state.group)
@@ -77,7 +78,8 @@ class ChatGroupModal extends Component {
             group: e.target.value
         })
     }
-    
+
+// 🎁 Function to create a chat group
     handleSubmit = (e) => {
         e.preventDefault();
         if(this.state.group) {
@@ -92,6 +94,7 @@ class ChatGroupModal extends Component {
         }
     }
 
+// 🎁 Function to delete a chat group
     handleDeleteGroup = () => {
         if(!this.state.group){
             alert('Select a group');
@@ -104,6 +107,7 @@ class ChatGroupModal extends Component {
         }        
     }    
 
+// 🎁 Function to select the clicked chat group
     handleLiClick = (e) => {
         const selectedGroup = e.target.innerText
         this.setState({
@@ -137,13 +141,14 @@ class ChatGroupModal extends Component {
                         <input className="input" onChange={this.handleChange} value={this.state.group} type="text" placeholder="Group name" /> 
                         <div style={footerStyle}>
                             <button className="submit" onClick={() => this.sendGroupName()}>Submit</button>                            
-                            <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                         </div>
                     </form>
 
                     <button className="deleteGroup" onClick={() => {
                         this.handleDeleteGroup();
                     }}>Delete</button>
+
+                    <button className="close" onClick={(e) => { this.props.onClose(e); }}>Close</button>
                 </div>
             </div>
         );

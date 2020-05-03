@@ -29,7 +29,6 @@ const footerStyle = {
     bottom: 10
 }
 
-
 class EnterUserModal extends Component {
   constructor(){
     super()
@@ -38,6 +37,7 @@ class EnterUserModal extends Component {
     }
   }
 
+// 🎁 Function to send user to App.js
   sendUser = () => {
     this.props.getLoginUser(this.state.user)
   }
@@ -48,7 +48,6 @@ class EnterUserModal extends Component {
 
 
   handleChange = (e) => {
-    // console.log(e.target.value);
     this.setState({
       user: e.target.value
     })
@@ -61,7 +60,6 @@ class EnterUserModal extends Component {
       this.sendUser();
     }
   }
-
   
   render() {
     // console.log(this.state.user);    

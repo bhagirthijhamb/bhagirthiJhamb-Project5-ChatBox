@@ -1,27 +1,25 @@
-
-
-.info {
-  background: rgba(246, 246, 246, 0.6);
+.header {
+  background: #eee;
   color: black;
+  border-radius: 1rem
+}
+
+.info {  
   margin: 1rem auto;
-  width: 80%;
-//   height: 30rem;
-  padding: .8rem 1rem;
+  width: 50%;
+  font-size: .9rem;
+  padding: .4rem 2rem;
   border-radius: 1rem;
 
-  & h2 {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
   p {
       margin-bottom: .5rem;
   }
 
   & .title {
+      color: black;
       font-size: 1.6rem;
       font-weight: bold;
+      margin-bottom: .5rem;
   }
 }
 
@@ -36,12 +34,95 @@
 .infoButton {
     border: 1px solid black;
     border-radius: 3px;
-    padding: 2px 8px;
-    background: green;
+    padding: 1px 6px;
+    background: lighten(green, 6%);
     color: white;
+    font-size: .8rem
 }
 
 .infoInput {
-    background: white;
+    background: #eee;
     color: black;
 }
+
+.infoButtonDelete {
+    background: #eee;
+    color: grey;
+}
+
+.tabLi {
+    margin-left: 1.9rem;
+}
+
+.mainFeatures {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 1140px) {
+    .info {  
+        margin: 1rem auto;
+        width: 60%;
+        font-size: .9rem;
+        padding: .4rem 2rem;
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 940px) {
+    .info {  
+        width: 80%;
+    }
+}
+
+@media (max-width: 710px) {
+
+    .header {
+        border-radius: .5rem
+    }
+        
+    .info {  
+        margin: .5rem auto;
+        width: 100%;
+        font-size: .8rem;
+        padding: .3rem 2rem;
+        border-radius: .5rem;
+
+    p {
+        margin-bottom: .3rem;
+    }
+
+    & .title {
+        color: black;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: .3rem;
+    }
+    }
+
+    .infoList {
+        margin-left: 1rem;
+
+        & li {
+            margin: .4rem 0;
+        }
+    }
+
+    .infoButton {
+        border-radius: 3px;
+        padding: 1px 5px;
+        font-size: .7rem
+    }
+
+    .tabLi {
+        margin-left: 1.2rem;
+    }
+
+    .mainFeatures {
+        font-size: .8rem;
+    }
+}
+
+ 
