@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/bhagirthiJhamb-Project5-ChatBox/precache-manifest.4cb28b071bd4e500f7fe6626384a1ed3.js"
+  "/bhagirthiJhamb-Project5-ChatBox/precache-manifest.b473627373cdf1e0cfc73eadb3bae93a.js"
 );
 
 self.addEventListener('message', (event) => {
