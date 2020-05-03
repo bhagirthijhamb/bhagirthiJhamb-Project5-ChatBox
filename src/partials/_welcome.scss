@@ -1,0 +1,47 @@
+
+
+.info {
+  background: rgba(246, 246, 246, 0.6);
+  color: black;
+  margin: 1rem auto;
+  width: 80%;
+//   height: 30rem;
+  padding: .8rem 1rem;
+  border-radius: 1rem;
+
+  & h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  p {
+      margin-bottom: .5rem;
+  }
+
+  & .title {
+      font-size: 1.6rem;
+      font-weight: bold;
+  }
+}
+
+.infoList {
+    margin-left: 2rem;
+
+    & li {
+        margin: .5rem 0;
+    }
+}
+
+.infoButton {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 2px 8px;
+    background: green;
+    color: white;
+}
+
+.infoInput {
+    background: white;
+    color: black;
+}

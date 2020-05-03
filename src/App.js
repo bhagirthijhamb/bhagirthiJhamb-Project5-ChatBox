@@ -30,15 +30,12 @@ class App extends Component {
     };
   }
 
-
-
   showUserModal = () => {
     this.setState({
       // ...this.state,
       userShow: !this.state.userShow,
     });
   };
-
 
   showGroupModal = () => {
     this.setState({
@@ -66,11 +63,9 @@ class App extends Component {
   }
 
   loadMessages = () => {
+    const dbRef = firebase.database().ref(`/${this.state.group}`);
 
-    const dbRef2 = firebase.database().ref(`/${this.state.group}`);
-    // const dbRef = firebase.database().ref(this.state.group);
-
-    dbRef2.on('value', (response) => {
+    dbRef.on('value', (response) => {
       const data = response.val();
 
       this.setState({ 
@@ -94,71 +89,63 @@ class App extends Component {
             copyMessage.push(newMessage);
 
             this.setState({
-              // time: createdAt,
-              // user: user,
               message: message,
               messages: copyMessage
             })
-            // console.log(this.state.messages);
           }
-      }
-      )     
+      })     
     })
   }
 
-  scrollToBottom(){
-        this.el.scrollIntoView({ behavior: 'smooth'});
-    }
+  scrollToBottom = () => {
+      const messageList = document.querySelector(".screen");
+      messageList.scrollTop = messageList.scrollHeight - messageList.clientHeight;
+  }
 
   componentDidMount() {
-
     this.loadMessages(); 
-    this.scrollToBottom();
+    // this.scrollToBottom();
   }       
 
   componentDidUpdate(){
     this.scrollToBottom();
   }
 
-  // componentDidUpdate(){
-  //   const node = ReactDOM.findDOMNode(this);
-  //   node.scrollTop = node.scrollHeight - node.clientHeight;
-  // }
-  
   render() {
     return (
-      <div className="wrapper">
-        <Welcome />
-        <h1>Chat Box</h1>
-        <div className="mobile">
-          <div className="top"></div>
-          <div className="bottom"></div>
-          <div className="topBar"></div>
+      <div className="wrapper">        
+        <Welcome className="information" />
+        <div className="chatBox">
+          <h1>Chat Box</h1>
+          <div className="mobile">
+            <div className="top"></div>
+            <div className="bottom"></div>
+            <div className="topBar"></div>
 
-          <div className="screen">
-            <MessageList currentUser={this.state.user} messages={this.state.messages} currentGroup={this.state.group} />
-            <div ref={el => { this.el = el; }} />
+            <div className="screen">
+              <MessageList currentUser={this.state.user} messages={this.state.messages} currentGroup={this.state.group} />
+            </div>          
+
+            {/* Buttons on the main page */}
+            <button onClick={this.showUserModal} className="create-user">
+              User
+            </button>
+            <div className="current-group">
+              {this.state.group}
+            </div>
+            <button onClick={this.showGroupModal} className="create-group">
+              Group
+            </button> 
+
+            <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
+            </EnterUserModal>  
+
+            <ChatGroup currentUser={this.state.user} currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
+              <h2 className="modalHeader">Group Name</h2>
+              </ChatGroup>     
+
+            <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
           </div>
-          
-
-          <button onClick={this.showUserModal} className="create-user">
-            User
-          </button>
-          <button className="current-group">
-            {this.state.group}
-          </button>
-          <button onClick={this.showGroupModal} className="create-group">
-            Group
-          </button> 
-
-          <EnterUserModal getLoginUser={this.getLoginUser} onClose={this.showUserModal} show={this.state.userShow}>
-          </EnterUserModal>  
-
-          <ChatGroup currentUser={this.state.user} currentGroup={this.state.group} getGroupName={this.getGroupName} onClose={this.showGroupModal} show={this.state.groupShow}>
-            <h2 className="modalHeader">Group Name</h2>
-            </ChatGroup>     
-
-          <SendMessageForm user={this.state.user} group={this.state.group} getMessage={this.getMessage}/>
         </div>
       </div>
     );

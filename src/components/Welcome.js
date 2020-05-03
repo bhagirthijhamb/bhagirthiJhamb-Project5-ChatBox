@@ -14,10 +14,24 @@ class Welcome extends Component {
             timeOfDay = "night";
         }
         return(
-            <header>
-                <h2>Good {timeOfDay} to you, sir or madam!</h2>
-                <p>Chat Box is a chat app that has groups and youcan chat with people in real time</p>
-            </header>            
+            <div>
+                <div className="info">
+                    <h2>Good { timeOfDay } <span className="chatBoxEmoji">👧🏻</span> <span className="chatBoxEmoji">👦🏻</span> </h2>
+                    <p><span className="title">Chat Box</span>  is a chat app that helps you stay connected with your friends in real time</p>
+                    <p>Main features - Click or [tab] to</p>
+                    <ul className="infoList">
+                        <li><span>👉🏻 </span><span className="infoButton infoInput">Input</span> box to type and <span className="infoButton">Send</span> your message</li>
+                        <li><span className="infoButton">X</span> to delete a message</li>
+                        <li><span>👉🏻 </span><span className="infoButton">User</span> button to enter your user name</li>
+                        <li><span>👉🏻 </span><span className="infoButton">Group</span> button to create or change group</li>
+                        <ul>
+                            <li><span className="infoButton">Submit</span> to select or create group</li>
+                            <li><span className="infoButton">Delete</span> to delete a group</li>
+                        </ul>
+                    </ul>
+
+                </div>
+            </div>            
         )
     }
 }

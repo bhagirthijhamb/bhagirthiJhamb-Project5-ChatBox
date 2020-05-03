@@ -12,19 +12,22 @@ html {
 
 body {
   font-family: sans-serif;
+  background: url(./../backgroundImg.jpg);
+  background-color: #555;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .wrapper {
   max-width: 1280px;
-  height: 800px;
-  margin: 0 auto;
-  background: url(./../backgroundImg.jpg);
-  // background: #444;
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: fixed;
-  // background-attachment: fixed;
-  // background-blend-mode: lighten;
+  height: 100vh;
+  margin: 0 auto;  
+  display: flex;
+  flex-direction: column;
+    justify-content: flex-start;
+  padding-top: 0;
 }
 
 // ------------BUTTONS--------------------
@@ -36,6 +39,28 @@ button {
     background-color: rgb(7, 155, 7);
     color: #fff;
     font-size: .7rem;
+}
+
+button:hover {
+  // background-color: green;
+  background-color: lighten(green, 10%);
+}
+
+button:active {
+  background-color: darken(green, 10%);
+  box-shadow: 0 3px gray;
+  transform: translateY(1px);
+  transition: all ease;
+}
+
+.delete:hover {
+   background-color: transparent;
+}
+
+.delete:active {
+   background-color: transparent;
+   box-shadow: none;
+  transform: none;
 }
 
 .create-user {
@@ -53,7 +78,6 @@ button {
 
 .current-group {
   width: 142px;
-  //  font-size: .9rem;
   font-weight: bold;
   position: absolute;
   top: 2px;
@@ -61,26 +85,13 @@ button {
   background: $color-secondary;
   border: 1px solid grey;
   color: #444;
-}
-
-// -------------------HEADER---------------------
-
-header {
-  background: rgb(246, 246, 246);
-  color: grey;
-  margin-top: 3rem;
-  height: 6rem;
-  padding: 1rem;
-
-  & h2 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
+  text-align: center;
+  border-radius: 4px;
+  padding: 3px 2px;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: White;
   text-align: center;
   margin-top: 1rem;
@@ -89,7 +100,6 @@ h1 {
 .modalHeading {
   font-size: 1rem;
   font-weight: bold;
-  // background: #24a0ed;
   background: green;
   border-radius: 4px;
   padding: 5px;
